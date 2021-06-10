@@ -9,7 +9,7 @@ const VideoDetail = (props) => {
     }, [props.selectedVideo2])
     const [duration, setDuration] = useState();
     if (!props.selectedVideo) {
-        return <div>Loading ...</div>
+        return <div>Waiting you to select video :)</div>
     }
     console.log(props.selectedVideo2);
     const videoSrc = `https://www.youtube.com/embed/${props.selectedVideo.id.videoId}`
