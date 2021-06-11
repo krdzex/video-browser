@@ -14,7 +14,6 @@ const App = () => {
   const [selectedVideo, setSelectedVideo] = useState();
   const [selectedVideo2, setSelectedVideo2] = useState();
   const handleVideoSelect = (video) => {
-    console.log(video)
     setSelectedVideo(video);
     axios.get("https://www.googleapis.com/youtube/v3/videos", {
       params: {
@@ -22,7 +21,7 @@ const App = () => {
         key: KEY,
         id: video.id.videoId
       }
-    }).then(response => setSelectedVideo2(response.data.items[0])).catch()
+    }).then(response => setSelectedVideo2(response.data.items[0])).catch(reason => console.log(reason));
   }
   const getInputValue = (input) => {
     axios.get(baseURL, {
@@ -32,7 +31,27 @@ const App = () => {
         key: KEY,
         q: input
       }
-    }).then(response => setVideos(response.data.items)).catch(reason => console.log(reason))
+    }).then(response => setVideos(response.data.items)).catch(reason => console.log(reason));
+  }
+
+  window.onload = () => {
+    axios.get(baseURL, {
+      params: {
+        part: "snippet",
+        maxResults: 5,
+        key: KEY,
+        q: "Programming"
+      }
+    }).then(response => {
+      setVideos(response.data.items); setSelectedVideo(response.data.items[0]);
+      axios.get("https://www.googleapis.com/youtube/v3/videos", {
+        params: {
+          part: "contentDetails",
+          key: KEY,
+          id: response.data.items[0].id.videoId
+        }
+      }).then(response => setSelectedVideo2(response.data.items[0])).catch(reason => console.log(reason));
+    }).catch(reason => console.log(reason));
   }
 
   return (

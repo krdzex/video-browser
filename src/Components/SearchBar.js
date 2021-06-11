@@ -21,9 +21,9 @@ const SearchBar = (props) => {
         <div style={{
             borderBottom: "1px solid lightgray",
             marginBottom: "20px",
-            height: "70px"
+            height: "75px"
         }}>
-            <form style={{ marginTop: "20px", textAlign: "center" }
+            <form style={{ marginTop: "10px", textAlign: "center" }
             } onSubmit={onSubmitHandle} >
                 <TextField
                     {...(error && { error: true, helperText: "This input cant be empty!" })}
@@ -32,6 +32,7 @@ const SearchBar = (props) => {
                     value={input}
                     onChange={onChangeHandle}
                     variant="outlined"
+                    style={{ width: "500px" }}
                 />
             </form >
         </div >
